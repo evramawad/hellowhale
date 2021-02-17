@@ -1,4 +1,4 @@
-pipeline {
+adpipeline {
 
   agent any
 
@@ -6,27 +6,26 @@ pipeline {
 
     stage('Checkout Source') {
       steps {
-        git url:'https://github.com/vamsijakkula/hellowhale.git', branch:'master'
+        git url:'https://github.com/evramawad/hellowhale.git', branch:'master'
       }
     }
     
       stage("Build image") {
             steps {
                 script {
-                    myapp = docker.build("vamsijakkula/hellowhale:${env.BUILD_ID}")
+                    myapp = docker.build("evramawad/hellowhale:${env.BUILD_ID}")
                 }
             }
         }
     
-      stage("Push image") {
-            steps {
-                script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
-                            myapp.push("latest")
-                            myapp.push("${env.BUILD_ID}")
+       stage('Deploying Docker Image to Nexus') {
+                steps {
+                    script {
+                        docker.withRegistry('http://192.168.1.200:8082', 'c09bf387-73e4-48b3-982d-b74f75f97a1f') {
+                        dockerImage.push()
+                        }
                     }
                 }
-            }
         }
 
     
