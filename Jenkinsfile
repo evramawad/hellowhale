@@ -22,7 +22,7 @@ pipeline  {
                 steps {
                     script {
                         docker.withRegistry('http://192.168.1.200:8082', 'c09bf387-73e4-48b3-982d-b74f75f97a1f') {
-                        dockerImage.push()
+                        myapp.push()
                         }
                     }
                 }
