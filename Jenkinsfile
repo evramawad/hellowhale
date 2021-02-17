@@ -1,4 +1,4 @@
-adpipeline {
+pipeline  {
 
   agent any
 
